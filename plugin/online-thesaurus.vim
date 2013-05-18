@@ -43,8 +43,6 @@ endif
 
 noremap <unique> <script> <Plug>OnlineThesaurusLookup :call <SID>Lookup()<CR>
 
-if !exists(":OnlineThesaurusLookup")
-    command -nargs=0 OnlineThesaurusLookup :call s:Lookup()
-endif
+command! OnlineThesaurusLookup :call <SID>Lookup()
 
 let &cpo = s:save_cpo
