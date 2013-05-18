@@ -14,9 +14,11 @@ cat src.tmp | \
 echo -n "Synonyms: "
 cat src.tmp | \
     sed -n '/<td valign="top">Synonyms:<\/td>/,/\/span/ {/\/span/q; p;}' | \
-    sed -ne 's/.*>\(.*\)<\/a>,.*/\1/p' | \
-    tr '\n' ', ' | \
-    sed -e 's/,$/\n/' | \
-    sed -e 's/,/, /g'
+    sed 's/.*<td.*//g' | \
+    sed 's/<[^>]*>//g' | \
+    tr -d '*' | \
+    tr '\n' ' ' | \
+    sed -e 's/^ *//' | \
+    sed -e 's/ *$//'
 rm src.tmp
 
