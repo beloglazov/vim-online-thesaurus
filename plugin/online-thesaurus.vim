@@ -31,7 +31,8 @@ endfunction
 function! s:Lookup()
     let s:word = expand('<cword>')
     silent keepalt belowright split thesaurus
-    setlocal noswapfile nobuflisted wrap nospell buftype=nofile bufhidden=hide
+    setlocal noswapfile nobuflisted nospell nomodifiable wrap
+    setlocal buftype=nofile bufhidden=hide
     1,$d
     echo "Requesting thesaurus.com to look up the word \"" . s:word . "\"..."
     exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . s:word
