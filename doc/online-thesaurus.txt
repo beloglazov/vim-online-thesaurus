@@ -5,7 +5,7 @@ License: Same terms as Vim itself (see |license|)
 
 This plugin is only available if 'compatible' is not set.
 
-INTRODUCTION                                    *online-thesaurus*
+INTRODUCTION                                                *online-thesaurus*
 
 This plugin provides a command for looking up words in an online thesaurus,
 which is at the moment configured to be http://thesaurus.com/
@@ -16,23 +16,23 @@ synonyms.
 The credit for the original idea and code goes to Nick Coleman:
 http://www.nickcoleman.org/
 
-MAPPINGS                                        *online-thesaurus-mappings*
+MAPPINGS                                           *online-thesaurus-mappings*
 
-                                                *OnlineThesaurusLookup*
-The plugin provides the *:OnlineThesaurusLookup* command to look up the current
+                                                      *:OnlineThesaurusLookup*
+The plugin provides the |:OnlineThesaurusLookup| command to look up the current
 word under the cursor in an online thesaurus. The command makes a request to
 http://thesaurus.com/, parses results, and displays them in a vertical split in
 the bottom.
 
-By default the |:OnlineThesaurusLookup| command is mapped to *<LocalLeader>K*.
-If you haven't remapped <LocalLeader>, it defaults to \. To close the split,
-just press *q*.
+By default the |:OnlineThesaurusLookup| command is mapped to '<LocalLeader>K'.
+If you haven't remapped <LocalLeader>, it defaults to '\'. To close the split,
+just press 'q'.
 
-CUSTOMIZATION                                   *online-thesaurus-customization*
+CUSTOMIZATION                                 *online-thesaurus-customization*
 
-                                                *g:online_thesaurus_map_keys*
+                                                 *g:online_thesaurus_map_keys*
 If you want to disable the default key binding, add the following line to your
-.vimrc:
+|.vimrc|:
 >
   let g:online_thesaurus_map_keys = 1
 <
