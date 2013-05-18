@@ -2,6 +2,7 @@
 " Author:       Anton Beloglazov <http://beloglazov.info/>
 " Version:      0.1
 " Original idea and code: Nick Coleman <http://www.nickcoleman.org/>
+" LogicalLineCounts: Greg Sexton <http://www.gregsexton.org/>
 
 if exists("g:loaded_online_thesaurus")
     finish
@@ -33,9 +34,11 @@ function! s:Lookup()
     setlocal noswapfile nobuflisted wrap nospell buftype=nofile bufhidden=hide
     1,$d
     echo "Requesting thesaurus.com to look up the word \"" . s:word . "\"..."
-    exe ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . s:word
-    exec 'resize ' . s:LogicalLineCounts()
+    exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . s:word
     1
+    normal! jjVgq1
+    1
+    exec 'resize ' . s:LogicalLineCounts()
     set filetype=thesaurus
     nnoremap <silent> <buffer> q :q<CR>
 endfunction
