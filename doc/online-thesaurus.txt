@@ -1,6 +1,6 @@
 *online-thesaurus.txt*	Online thesaurus for Vim
 
-Author:  Anton Beloglazov <http://beloglazov.info/>
+Author:  Anton Beloglazov http://beloglazov.info/
 License: Same terms as Vim itself (see |license|)
 
 This plugin is only available if 'compatible' is not set.
