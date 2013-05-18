@@ -6,6 +6,8 @@ which is at the moment configured to be http://thesaurus.com
 The plugin displays the definition of the word under the cursor and a list of
 synonyms.
 
+![](https://github.com/beloglazov/vim-online-thesaurus/raw/master/screenshot.png)
+
 The credit for the original idea and code goes to Nick Coleman:
 http://www.nickcoleman.org/
 
@@ -24,8 +26,9 @@ Then run `:BundleInstall` to install the plugin.
 ## Usage
 
 The plugin provides the `:OnlineThesaurusLookup` command to look up the current
-word under the cursor. The command makes a request to http://thesaurus.com,
-parses results, and displays them in a vertical split in the bottom.
+word under the cursor in an online thesaurus. The command makes a request to
+http://thesaurus.com, parses results, and displays them in a vertical split in
+the bottom.
 
 By default the `:OnlineThesaurusLookup` command is mapped to `<LocalLeader>K`.
 If you haven't remapped `<LocalLeader>`, it defaults to `\`. To close the split,
