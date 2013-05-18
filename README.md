@@ -10,7 +10,7 @@ The credit for the original idea and code goes to Nick Coleman:
 http://www.nickcoleman.org/
 
 
-# Installation
+## Installation
 
 If you are using Vundle, just add the following line to your .vimrc:
 
@@ -21,7 +21,7 @@ Bundle 'beloglazov/vim-online-thesaurus'
 Then run `:BundleInstall` to install the plugin.
 
 
-# Usage
+## Usage
 
 The plugin provides the `:OnlineThesaurusLookup` command to look up the current
 word under the cursor. The command makes a request to http://thesaurus.com,
@@ -32,7 +32,7 @@ If you haven't remapped `<LocalLeader>`, it defaults to `\`. To close the split,
 just press `q`.
 
 
-# Configuration
+## Configuration
 
 If you want to disable the default key binding, add the following line to your
 .vimrc:
