@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# http://www.nickcoleman.org/blog/index.cgi?post=vim-thesaurus!201202170802!general%2Cblogging%2Cinternet%2Cprogramming%2Csoftware%2Cunix
-
 wget -q http://thesaurus.com/browse/${1} -O src.tmp
 echo -n "Main entry: "
 cat src.tmp | \
