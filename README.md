@@ -52,3 +52,9 @@ nnoremap <your key binding> :OnlineThesaurusLookup<CR>
 ```
 
 Enjoy!
+
+
+## License
+
+Copyright (c) Anton Beloglazov. Distributed under the same terms as Vim itself.
+See :help license.
