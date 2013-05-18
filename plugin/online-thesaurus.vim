@@ -31,7 +31,7 @@ endfunction
 function! s:Lookup()
     let s:word = expand('<cword>')
     silent keepalt belowright split thesaurus
-    setlocal noswapfile nobuflisted nospell nomodifiable wrap
+    setlocal noswapfile nobuflisted nospell modifiable wrap
     setlocal buftype=nofile bufhidden=hide
     1,$d
     echo "Requesting thesaurus.com to look up the word \"" . s:word . "\"..."
@@ -40,6 +40,7 @@ function! s:Lookup()
     normal! jjVgq1
     1
     exec 'resize ' . s:LogicalLineCounts()
+    setlocal nomodifiable
     set filetype=thesaurus
     nnoremap <silent> <buffer> q :q<CR>
 endfunction
