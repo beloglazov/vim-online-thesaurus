@@ -1,7 +1,7 @@
 # Vim Online Thesaurus
 
 This is a plugin for Vim allowing you to look up words in an online thesaurus,
-which is at the moment configured to be http://thesaurus.com
+which is at the moment configured to be http://thesaurus.com/
 
 The plugin displays the definition of the word under the cursor and a list of
 synonyms.
@@ -27,7 +27,7 @@ Then run `:BundleInstall` to install the plugin.
 
 The plugin provides the `:OnlineThesaurusLookup` command to look up the current
 word under the cursor in an online thesaurus. The command makes a request to
-http://thesaurus.com, parses results, and displays them in a vertical split in
+http://thesaurus.com/, parses results, and displays them in a vertical split in
 the bottom.
 
 By default the `:OnlineThesaurusLookup` command is mapped to `<LocalLeader>K`.
