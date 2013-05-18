@@ -13,13 +13,28 @@ set cpo&vim
 
 let s:path = expand("<sfile>:p:h")
 
+function! s:Sum(vals)
+    let acc = 0
+    for val in a:vals
+        let acc += val
+    endfor
+    return acc
+endfunction
+
+function! s:LogicalLineCounts()
+    let width = winwidth(0)
+    let line_counts = map(range(1, line('$')), "foldclosed(v:val)==v:val?1:(virtcol([v:val, '$'])/width)+1")
+    return s:Sum(line_counts)
+endfunction
+
 function! s:Lookup()
     let s:word = expand('<cword>')
-    silent keepalt belowright 5split thesaurus
+    silent keepalt belowright split thesaurus
     setlocal noswapfile nobuflisted wrap nospell buftype=nofile bufhidden=hide
     1,$d
     echo "Requesting thesaurus.com to look up the word \"" . s:word . "\"..."
     exe ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . s:word
+    exec 'resize ' . s:LogicalLineCounts()
     1
     set filetype=thesaurus
     nnoremap <silent> <buffer> q :q<CR>
