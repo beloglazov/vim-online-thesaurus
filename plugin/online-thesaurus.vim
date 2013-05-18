@@ -1,4 +1,4 @@
-" Vim plugin for online thesaurus lookups
+" Vim plugin for looking up word in an online thesaurus
 " Author:       Anton Beloglazov <http://beloglazov.info/>
 " Version:      0.1
 " Original idea and code: Nick Coleman <http://www.nickcoleman.org/>
@@ -11,26 +11,18 @@ let g:loaded_online_thesaurus = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+let s:path = expand("<sfile>:p:h")
+
 function! s:Lookup()
-    " Assign current word under cursor to a script variable
-    let s:thes_word = expand('<cword>')
-    " Open a new window, keep the alternate so this doesn't clobber it.
-    keepalt split thes_
-    " Show cursor word in status line
-    exe "setlocal statusline=" . s:thes_word
-    " Set buffer options for scratch buffer
-    setlocal noswapfile nobuflisted nowrap nospell
-                \ buftype=nofile bufhidden=hide
-    " Delete existing content
+    let s:word = expand('<cword>')
+    silent keepalt belowright 5split thesaurus
+    setlocal noswapfile nobuflisted wrap nospell buftype=nofile bufhidden=hide
     1,$d
-    " Run the thesaurus script
-    exe ":0r !./thesaurus-lookup.sh " . s:thes_word
-    " Goto first line
+    echo "Requesting thesaurus.com to look up the word \"" . s:word . "\"..."
+    exe ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . s:word
     1
-    " Set file type to 'thesaurus'
     set filetype=thesaurus
-    " Map q to quit without confirm
-    nnoremap <buffer> q :q<CR>
+    nnoremap <silent> <buffer> q :q<CR>
 endfunction
 
 if !exists('g:online_thesaurus_map_keys')
@@ -38,10 +30,8 @@ if !exists('g:online_thesaurus_map_keys')
 endif
 
 if g:online_thesaurus_map_keys
-    nnoremap <unique> <LocalLeader>K <Plug>OnlineThesaurusLookup
+    nnoremap <unique> <LocalLeader>K :call <SID>Lookup()<CR>
 endif
-
-noremap <unique> <script> <Plug>OnlineThesaurusLookup :call <SID>Lookup()<CR>
 
 command! OnlineThesaurusLookup :call <SID>Lookup()
 
