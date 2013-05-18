@@ -1,4 +1,4 @@
-" Vim plugin for looking up word in an online thesaurus
+" Vim plugin for looking up words in an online thesaurus
 " Author:       Anton Beloglazov <http://beloglazov.info/>
 " Version:      0.1
 " Original idea and code: Nick Coleman <http://www.nickcoleman.org/>
