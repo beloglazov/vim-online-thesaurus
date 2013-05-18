@@ -3,7 +3,7 @@
 " Version:      0.1
 " Original idea and code: Nick Coleman <http://www.nickcoleman.org/>
 
-fun! OnlineThesaurusLookup()
+fun! s:OnlineThesaurusLookup()
    " Assign current word under cursor to a script variable
    let s:thes_word = expand('<cword>')
    " Open a new window, keep the alternate so this doesn't clobber it.
@@ -30,5 +30,7 @@ if !exists('g:online_thesaurus_map_keys')
 endif
 
 if g:online_thesaurus_map_keys
-    nnoremap <localleader>K :call <sid>OnlineThesaurusLookup()<CR>
+    nnoremap <unique> <localleader>K <Plug>OnlineThesaurusLookup
 endif
+
+map <silent> <unique> <script> <Plug>OnlineThesaurusLookup :call <SID>OnlineThesaurusLookup<CR>
