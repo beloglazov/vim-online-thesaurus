@@ -23,8 +23,7 @@ function! s:Lookup()
     exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . s:word
     normal! Vgqgg
     exec 'resize ' . line('$')
-    setlocal nomodifiable
-    setlocal filetype=thesaurus
+    setlocal nomodifiable filetype=thesaurus
     nnoremap <silent> <buffer> q :q<CR>
 endfunction
 
