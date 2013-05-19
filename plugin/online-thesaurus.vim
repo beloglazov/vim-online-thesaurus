@@ -22,7 +22,7 @@ function! s:Lookup()
     echo "Requesting thesaurus.com to look up the word \"" . s:word . "\"..."
     exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . s:word
     normal! Vgqgg
-    exec 'resize ' . line('$')
+    exec 'resize ' . (line('$') - 1)
     setlocal nomodifiable filetype=thesaurus
     nnoremap <silent> <buffer> q :q<CR>
 endfunction
