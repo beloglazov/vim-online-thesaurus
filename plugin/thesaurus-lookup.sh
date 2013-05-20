@@ -16,7 +16,10 @@ if cat src.tmp | grep 'queryn' > /dev/null; then
     echo -n 'Definition: '
     cat src.tmp | \
         grep -m2 -A1 'Definition' | \
-        sed -n -e 's/<td>\(.*\)<\/td.*/\1/p'
+        sed -n -e 's/<td>\(.*\)<\/td.*/\1/p' | \
+        sed 's/$/, /g' | \
+        tr -d '\n' | \
+        sed 's/, *$/\n/'
 
     echo -n 'Synonyms: '
     cat src.tmp | \
