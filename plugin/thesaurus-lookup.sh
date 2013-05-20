@@ -19,8 +19,10 @@ if cat src.tmp | grep 'queryn' > /dev/null; then
         sed -n -e 's/<td>\(.*\)<\/td.*/\1/p' | \
         sed 's/$/, /g' | \
         tr -d '\n' | \
-        sed 's/, *$//'
+        sed 's/, *$//' | \
+        tr -d '\n'
 
+    echo
     echo -n 'Synonyms: '
     cat src.tmp | \
         sed -n '/<td valign="top">Synonyms:<\/td>/,/\/span/ {/\/span/q; p;}' | \
