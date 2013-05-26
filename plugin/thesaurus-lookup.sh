@@ -5,7 +5,7 @@
 # Version:      0.1.1
 # Original idea and code: Nick Coleman <http://www.nickcoleman.org/>
 
-wget -q http://thesaurus.com/browse/${1} -O src.tmp
+curl -o src.tmp http://thesaurus.com/browse/${1} >/dev/null 2>&1
 
 if cat src.tmp | grep 'queryn' > /dev/null; then
     echo -n 'Main entry: '
