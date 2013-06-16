@@ -41,7 +41,7 @@ If you want to disable the default key binding, add the following line to your
 .vimrc:
 
 ```
-let g:online_thesaurus_map_keys = 1
+let g:online_thesaurus_map_keys = 0
 ```
 
 Then you can map the `:OnlineThesaurusLookup` command to anything you want as
