@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Vim plugin for looking up words in an online thesaurus
 # Author:       Anton Beloglazov <http://beloglazov.info/>
