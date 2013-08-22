@@ -10,7 +10,7 @@ URL="http://thesaurus.com/browse/${1}"
 if [ "$(uname)" = "FreeBSD" ]; then
         DOWNLOAD="fetch"
         OPTIONS="-qo"
-elif command -v curl > dev/null; then
+elif command -v curl > /dev/null; then
         DOWNLOAD="curl"
         OPTIONS="-so"
 elif command -v wget > /dev/null; then
