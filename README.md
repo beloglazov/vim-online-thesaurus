@@ -27,7 +27,7 @@ Then run `:BundleInstall` to install the plugin.
 
 The plugin provides the `:OnlineThesaurusCurrentWord` command to look up the
 current word under the cursor in an online thesaurus. Alternatively, you can
-look up any word with `:OnlineThesaurusLookup word`.
+look up any word with `:Thesaurus word`.
 
 Internally, both commands make a request to http://thesaurus.com/, parse the
 results, and display them in a vertical split in the bottom.

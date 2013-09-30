@@ -35,6 +35,6 @@ if g:online_thesaurus_map_keys
 endif
 
 command! OnlineThesaurusCurrentWord silent :call <SID>Lookup(expand('<cword>'))
-command! -nargs=1 OnlineThesaurusLookup silent :call <SID>Lookup(<f-args>)
+command! -nargs=1 Thesaurus silent :call <SID>Lookup(<f-args>)
 
 let &cpo = s:save_cpo
