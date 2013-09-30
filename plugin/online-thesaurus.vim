@@ -13,14 +13,13 @@ set cpo&vim
 
 let s:path = expand("<sfile>:p:h")
 
-function! s:Lookup()
-    let s:word = expand('<cword>')
+function! s:Lookup(word)
     silent keepalt belowright split thesaurus
     setlocal noswapfile nobuflisted nospell nowrap modifiable
     setlocal buftype=nofile bufhidden=hide
     1,$d
-    echo "Requesting thesaurus.com to look up the word \"" . s:word . "\"..."
-    exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . s:word
+    echo "Requesting thesaurus.com to look up the word \"" . a:word . "\"..."
+    exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . a:word
     normal! Vgqgg
     exec 'resize ' . (line('$') - 1)
     setlocal nomodifiable filetype=thesaurus
@@ -32,9 +31,10 @@ if !exists('g:online_thesaurus_map_keys')
 endif
 
 if g:online_thesaurus_map_keys
-    nnoremap <unique> <LocalLeader>K :call <SID>Lookup()<CR>
+    nnoremap <unique> <LocalLeader>K :OnlineThesaurusCurrentWord<CR>
 endif
 
-command! OnlineThesaurusLookup :call <SID>Lookup()
+command! OnlineThesaurusCurrentWord silent :call <SID>Lookup(expand('<cword>'))
+command! -nargs=1 OnlineThesaurusLookup silent :call <SID>Lookup(<f-args>)
 
 let &cpo = s:save_cpo
