@@ -34,8 +34,8 @@ if g:online_thesaurus_map_keys
     nnoremap <unique> <LocalLeader>K :OnlineThesaurusCurrentWord<CR>
 endif
 
-command! OnlineThesaurusCurrentWord silent :call <SID>Lookup(expand('<cword>'))
-command! OnlineThesaurusLookup silent :call <SID>Lookup(expand('<cword>'))
-command! -nargs=1 Thesaurus silent :call <SID>Lookup(<f-args>)
+command! OnlineThesaurusCurrentWord :call <SID>Lookup(expand('<cword>'))
+command! OnlineThesaurusLookup :call <SID>Lookup(expand('<cword>'))
+command! -nargs=1 Thesaurus :call <SID>Lookup(<f-args>)
 
 let &cpo = s:save_cpo
