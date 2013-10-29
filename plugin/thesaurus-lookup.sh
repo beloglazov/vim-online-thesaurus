@@ -2,7 +2,7 @@
 
 # Vim plugin for looking up words in an online thesaurus
 # Author:       Anton Beloglazov <http://beloglazov.info/>
-# Version:      0.1.6
+# Version:      0.1.7
 # Original idea and code: Nick Coleman <http://www.nickcoleman.org/>
 
 URL="http://thesaurus.com/browse/${1}"
