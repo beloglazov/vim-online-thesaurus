@@ -35,7 +35,8 @@ if ! grep -q 'no thesaurus results' "$OUTFILE"; then
 
     printf "%s" 'Synonyms: '
     awk -F'<|>|&quot;' 'flag && /<\/div>/ {flag=0; done=1}; \
-        flag && !done && /text/ {printf "%s ",$5; print $13};
+        flag && !done && /thesaurus.com/ {printf "%s ",$5}; \
+        flag && !done && /text/ {print $3}; \
         /relevancy-list/ {flag=1}' "$OUTFILE" | \
         sort -t ' ' -k 1,1r -k 2,2 | \
         sed 's/relevant-[0-9]* //g' | \
