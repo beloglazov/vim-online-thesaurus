@@ -17,10 +17,14 @@ http://www.nickcoleman.org/
 If you are using Vundle, just add the following line to your .vimrc:
 
 ```
-Bundle 'beloglazov/vim-online-thesaurus'
+Plugin 'beloglazov/vim-online-thesaurus'
 ```
 
-Then run `:BundleInstall` to install the plugin.
+Then run `:PluginInstall` to install the plugin.
+
+Note: Earlier versions required the "Bundle" keyword instead of plugin (i.e. :BundleInstall
+and Bundle 'beloglazov/vim-online-thesaurus'). However,
+this is deprecated and should not be used any longer.
 
 
 ## Usage
