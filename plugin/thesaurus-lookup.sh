@@ -21,7 +21,14 @@ else
         exit 1
 fi
 
-OUTFILE="$(mktemp /tmp/XXXXXXX)"
+if command -v mktemp > /dev/null; then
+        OUTFILE="$(mktemp /tmp/XXXXXXX)"
+else
+        NEW_RAND="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 12)"
+        touch /tmp/$NEW_RAND
+        OUTFILE="/tmp/$NEW_RAND"
+fi
+
 "$DOWNLOAD" "$OPTIONS" "$OUTFILE" "$URL"
 
 if ! grep -q 'no thesaurus results' "$OUTFILE"; then
@@ -38,7 +45,7 @@ if ! grep -q 'no thesaurus results' "$OUTFILE"; then
         flag && !done && /thesaurus.com/ {printf "%s ",$5}; \
         flag && !done && /text/ {print $3}; \
         /relevancy-list/ {flag=1}' "$OUTFILE" | \
-        sort -t ' ' -k 1,1r -k 2,2 | \
+        /bin/sort -t ' ' -k 1,1r -k 2,2 | \
         sed 's/relevant-[0-9]* //g' | \
         sed 's/$/, /g' | \
         tr -d '\n' | \
