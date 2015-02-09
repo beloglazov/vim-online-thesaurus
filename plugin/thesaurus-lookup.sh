@@ -45,7 +45,7 @@ if ! grep -q 'no thesaurus results' "$OUTFILE"; then
         flag && !done && /thesaurus.com/ {printf "%s ",$5}; \
         flag && !done && /text/ {print $3}; \
         /relevancy-list/ {flag=1}' "$OUTFILE" | \
-        /bin/sort -t ' ' -k 1,1r -k 2,2 | \
+        env sort -t ' ' -k 1,1r -k 2,2 | \
         sed 's/relevant-[0-9]* //g' | \
         sed 's/$/, /g' | \
         tr -d '\n' | \
