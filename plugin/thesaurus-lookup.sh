@@ -29,6 +29,12 @@ else
         OUTFILE="/tmp/$NEW_RAND"
 fi
 
+if command -v /bin/sort > /dev/null; then
+        SORT=/bin/sort
+else
+        SORT=sort
+fi
+
 "$DOWNLOAD" "$OPTIONS" "$OUTFILE" "$URL"
 
 if ! grep -q 'no thesaurus results' "$OUTFILE"; then
@@ -45,7 +51,7 @@ if ! grep -q 'no thesaurus results' "$OUTFILE"; then
         flag && !done && /thesaurus.com/ {printf "%s ",$5}; \
         flag && !done && /text/ {print $3}; \
         /relevancy-list/ {flag=1}' "$OUTFILE" | \
-        env sort -t ' ' -k 1,1r -k 2,2 | \
+        $SORT -t ' ' -k 1,1r -k 2,2 | \
         sed 's/relevant-[0-9]* //g' | \
         sed 's/$/, /g' | \
         tr -d '\n' | \
