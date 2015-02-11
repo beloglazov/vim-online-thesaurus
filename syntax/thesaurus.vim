@@ -1,6 +1,6 @@
 " Vim plugin for looking up words in an online thesaurus
 " Author:       Anton Beloglazov <http://beloglazov.info/>
-" Version:      0.1.8
+" Version:      0.1.9
 " Original idea and code: Nick Coleman <http://www.nickcoleman.org/>
 
 if exists("b:current_syntax")
