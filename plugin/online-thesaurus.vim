@@ -20,7 +20,14 @@ function! s:Lookup(word)
     1,$d
     echo "Requesting thesaurus.com to look up the word \"" . a:word . "\"..."
     exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . a:word
-    normal! Vgqgg
+    silent let sort = system('if command -v /bin/sort > /dev/null; then'
+                \ . ' echo -n /bin/sort;'
+                \ . ' else echo -n sort; fi')
+    exec ":silent g/\vrelevant-\d+/,/^$/!" . sort . " -t ' ' -k 1,1r -k 2,2"
+    silent g/\vrelevant-\d+ /s///
+    silent g/^Synonyms/+;/^$/-2s/$\n/, /
+    g/^Synonyms:/ normal! JVgq
+    0
     exec 'resize ' . (line('$') - 1)
     setlocal nomodifiable filetype=thesaurus
     nnoremap <silent> <buffer> q :q<CR>

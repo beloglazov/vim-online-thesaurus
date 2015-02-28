@@ -29,34 +29,22 @@ else
         OUTFILE="/tmp/$NEW_RAND"
 fi
 
-if command -v /bin/sort > /dev/null; then
-        SORT=/bin/sort
-else
-        SORT=sort
-fi
-
 "$DOWNLOAD" "$OPTIONS" "$OUTFILE" "$URL"
 
 if ! grep -q 'no thesaurus results' "$OUTFILE"; then
     printf "%s" 'Main entry: '
     echo ${1} | tr '[A-Z]' '[a-z]'
 
-    printf "%s" 'Definition: '
-    awk -F'<|>' '/layer disabled/ {flag=0}; \
-        flag && /ttl/ {print $3; flag=0}; \
-        /words-gallery/ {flag=1}' "$OUTFILE"
-
-    printf "%s" 'Synonyms: '
-    awk -F'<|>|&quot;' 'flag && /<\/div>/ {flag=0; done=1}; \
-        flag && !done && /thesaurus.com/ {printf "%s ",$5}; \
-        flag && !done && /text/ {print $3}; \
-        /relevancy-list/ {flag=1}' "$OUTFILE" | \
-        $SORT -t ' ' -k 1,1r -k 2,2 | \
-        sed 's/relevant-[0-9]* //g' | \
-        sed 's/$/, /g' | \
-        tr -d '\n' | \
-        sed 's/, *$//' | \
-        tr -d '\n'
+    awk -F'<|>|&quot;' '/synonym-description">/,/filter-[0-9]+/ {
+        if (index($0, "txt\">"))
+            printf "\nDefinition: %s", $3
+        else if (index($0, "ttl\">"))
+            printf " %s\nSynonyms:\n", $3
+        else if (index($0, "thesaurus.com"))
+            printf "%s ", $5
+        else if (index($0, "text\">"))
+            print $3
+    }' "$OUTFILE"
 else
     echo "The word \"${1}\" has not been found on thesaurus.com!"
 fi
