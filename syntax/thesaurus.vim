@@ -15,7 +15,7 @@ setlocal iskeyword+=:
 syntax match thesMainEntry /Main entry: */ contained
 syntax keyword thesDefinition Definition:
 syntax keyword thesSynonyms Synonyms:
-syntax keyword thePartOfSpeech noun pron verb adj adv prep conj interj
+syntax keyword thesPartOfSpeech noun pron verb adj adv prep conj interj
 
 " Entry contents rules
 syntax region thesMainWord start=/Main entry:/  end=/$/ contains=CONTAINED keepend
@@ -25,6 +25,6 @@ hi link thesMainEntry   Keyword
 hi link thesDefinition  Keyword
 hi link thesSynonyms    Keyword
 hi thesMainWord         term=bold cterm=bold gui=bold
-hi thePartOfSpeech      term=italic cterm=italic gui=italic
+hi thesPartOfSpeech     term=italic cterm=italic gui=italic
 
 let b:current_syntax = "thesaurus"
