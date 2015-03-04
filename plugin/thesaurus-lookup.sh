@@ -5,7 +5,7 @@
 # Version:      0.2.0
 # Original idea and code: Nick Coleman <http://www.nickcoleman.org/>
 
-URL="http://www.thesaurus.com/browse/${1}"
+URL="http://www.thesaurus.com/browse/${1/ /+}"
 
 if [ "$(uname)" = "FreeBSD" ]; then
         DOWNLOAD="fetch"

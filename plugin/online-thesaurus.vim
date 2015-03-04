@@ -11,7 +11,7 @@ let g:loaded_online_thesaurus = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-let s:path = expand("<sfile>:p:h")
+let s:path = shellescape(expand("<sfile>:p:h"))
 
 silent let s:sort = system('if command -v /bin/sort > /dev/null; then'
             \ . ' echo -n /bin/sort;'
@@ -30,7 +30,7 @@ function! s:Lookup(word)
     setlocal buftype=nofile bufhidden=hide
     1,$d
     echo "Requesting thesaurus.com to look up the word \"" . a:word . "\"..."
-    exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . a:word
+    exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . shellescape(a:word)
     exec ":silent g/\\vrelevant-\\d+/,/^$/!" . s:sort . " -t ' ' -k 1,1r -k 2,2"
     silent g/\vrelevant-\d+ /s///
     silent g/^Synonyms/+;/^$/-2s/$\n/, /
@@ -51,6 +51,6 @@ endif
 
 command! OnlineThesaurusCurrentWord :call <SID>Lookup(expand('<cword>'))
 command! OnlineThesaurusLookup :call <SID>Lookup(expand('<cword>'))
-command! -nargs=1 Thesaurus :call <SID>Lookup(<f-args>)
+command! -nargs=1 Thesaurus :call <SID>Lookup(<q-args>)
 
 let &cpo = s:save_cpo
