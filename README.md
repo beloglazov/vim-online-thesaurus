@@ -60,6 +60,18 @@ nnoremap <your key binding> :OnlineThesaurusCurrentWord<CR>
 Enjoy!
 
 
+## Contributors
+
+Big thanks for the following people who contributed to the development of this
+plugin!
+
+  - [Derek Schrock](https://github.com/derekschrock)
+  - [Justin Campbell](https://github.com/justincampbell)
+  - [Christian Heinrich](https://github.com/Shurakai)
+  - [Matija Brković](https://github.com/blablatros)
+  - [Shahaf Arad](https://github.com/av3r4ge)
+
+
 ## License
 
 Copyright (c) Anton Beloglazov. Distributed under the same terms as Vim itself.
