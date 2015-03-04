@@ -13,11 +13,15 @@ set cpo&vim
 
 let s:path = expand("<sfile>:p:h")
 
-function! s:Lookup(word)
-    let thesaurus_window = bufwinnr('thesaurus')
+silent let s:sort = system('if command -v /bin/sort > /dev/null; then'
+            \ . ' echo -n /bin/sort;'
+            \ . ' else echo -n sort; fi')
 
-    if thesaurus_window > -1
-        exec thesaurus_window . "wincmd w"
+function! s:Lookup(word)
+    let l:thesaurus_window = bufwinnr('thesaurus')
+
+    if l:thesaurus_window > -1
+        exec l:thesaurus_window . "wincmd w"
     else
         silent keepalt belowright split thesaurus
     endif
@@ -27,10 +31,7 @@ function! s:Lookup(word)
     1,$d
     echo "Requesting thesaurus.com to look up the word \"" . a:word . "\"..."
     exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . a:word
-    silent let sort = system('if command -v /bin/sort > /dev/null; then'
-                \ . ' echo -n /bin/sort;'
-                \ . ' else echo -n sort; fi')
-    exec ":silent g/\\vrelevant-\\d+/,/^$/!" . sort . " -t ' ' -k 1,1r -k 2,2"
+    exec ":silent g/\\vrelevant-\\d+/,/^$/!" . s:sort . " -t ' ' -k 1,1r -k 2,2"
     silent g/\vrelevant-\d+ /s///
     silent g/^Synonyms/+;/^$/-2s/$\n/, /
     g/^Synonyms:/ normal! JVgq
