@@ -28,9 +28,10 @@ function! s:Lookup(word)
 
     setlocal noswapfile nobuflisted nospell nowrap modifiable
     setlocal buftype=nofile bufhidden=hide
+    let l:word = substitute(a:word, '"', '', 'g')
     1,$d
-    echo "Requesting thesaurus.com to look up the word \"" . a:word . "\"..."
-    exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . shellescape(a:word)
+    echo "Requesting thesaurus.com to look up the word \"" . l:word . "\"..."
+    exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . shellescape(l:word)
     exec ":silent g/\\vrelevant-\\d+/,/^$/!" . s:sort . " -t ' ' -k 1,1r -k 2,2"
     silent g/\vrelevant-\d+ /s///
     silent g/^Synonyms/+;/^$/-2s/$\n/, /
