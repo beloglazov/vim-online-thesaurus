@@ -31,7 +31,7 @@ fi
 
 "$DOWNLOAD" "$OPTIONS" "$OUTFILE" "$URL"
 
-if ! grep -q 'no thesaurus results' "$OUTFILE"; then
+if ! grep -q 'no thesaurus results' "$OUTFILE" && grep -q 'html' "$OUTFILE"; then
     printf "%s" 'Main entry: '
     echo ${1} | tr '[A-Z]' '[a-z]'
 
