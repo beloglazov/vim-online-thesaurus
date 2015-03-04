@@ -23,7 +23,7 @@ function! s:Lookup(word)
     silent let sort = system('if command -v /bin/sort > /dev/null; then'
                 \ . ' echo -n /bin/sort;'
                 \ . ' else echo -n sort; fi')
-    exec ":silent g/\vrelevant-\d+/,/^$/!" . sort . " -t ' ' -k 1,1r -k 2,2"
+    exec ":silent g/\\vrelevant-\\d+/,/^$/!" . sort . " -t ' ' -k 1,1r -k 2,2"
     silent g/\vrelevant-\d+ /s///
     silent g/^Synonyms/+;/^$/-2s/$\n/, /
     g/^Synonyms:/ normal! JVgq
