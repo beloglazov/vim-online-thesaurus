@@ -62,7 +62,7 @@ Enjoy!
 
 ## Contributors
 
-Big thanks for the following people who contributed to the development of this
+Big thanks to the following people who contributed to the development of this
 plugin!
 
   - [Derek Schrock](https://github.com/derekschrock)
