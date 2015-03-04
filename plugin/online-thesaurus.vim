@@ -14,7 +14,14 @@ set cpo&vim
 let s:path = expand("<sfile>:p:h")
 
 function! s:Lookup(word)
-    silent keepalt belowright split thesaurus
+    let thesaurus_window = bufwinnr('thesaurus')
+
+    if thesaurus_window > -1
+        exec thesaurus_window . "wincmd w"
+    else
+        silent keepalt belowright split thesaurus
+    endif
+
     setlocal noswapfile nobuflisted nospell nowrap modifiable
     setlocal buftype=nofile bufhidden=hide
     1,$d
