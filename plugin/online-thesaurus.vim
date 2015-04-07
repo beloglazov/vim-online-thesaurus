@@ -34,7 +34,7 @@ function! s:Lookup(word)
     exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . shellescape(l:word)
     exec ":silent g/\\vrelevant-\\d+/,/^$/!" . s:sort . " -t ' ' -k 1,1r -k 2,2"
     silent g/\vrelevant-\d+ /s///
-    silent g/^Synonyms/+;/^$/-2s/$\n/, /
+    silent! g/^Synonyms/+;/^$/-2s/$\n/, /
     silent g/^Synonyms:/ normal! JVgq
     0
     exec 'resize ' . (line('$') - 1)
