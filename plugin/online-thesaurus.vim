@@ -14,8 +14,8 @@ set cpo&vim
 let s:path = shellescape(expand("<sfile>:p:h"))
 
 silent let s:sort = system('if command -v /bin/sort > /dev/null; then'
-            \ . ' echo -n /bin/sort;'
-            \ . ' else echo -n sort; fi')
+            \ . ' printf /bin/sort;'
+            \ . ' else printf sort; fi')
 
 function! s:Lookup(word)
     let l:thesaurus_window = bufwinnr('^thesaurus$')
