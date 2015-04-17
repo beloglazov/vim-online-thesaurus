@@ -10,6 +10,8 @@ let g:loaded_online_thesaurus = 1
 
 let s:save_cpo = &cpo
 set cpo&vim
+let s:save_shell = &shell
+let &shell = '/bin/sh'
 
 let s:path = shellescape(expand("<sfile>:p:h"))
 
@@ -55,3 +57,4 @@ command! OnlineThesaurusLookup :call <SID>Lookup(expand('<cword>'))
 command! -nargs=1 Thesaurus :call <SID>Lookup(<q-args>)
 
 let &cpo = s:save_cpo
+let &shell = s:save_shell
