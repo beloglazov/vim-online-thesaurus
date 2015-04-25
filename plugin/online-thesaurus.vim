@@ -20,10 +20,9 @@ silent let s:sort = system('if command -v /bin/sort > /dev/null; then'
             \ . ' else printf sort; fi')
 
 function! s:Lookup(word)
-    let l:thesaurus_window = bufwinnr('^thesaurus$')
-
-    if l:thesaurus_window > -1
-        exec l:thesaurus_window . "wincmd w"
+    if bufexists('thesaurus')
+        let thesaurus_window = bufwinnr('^thesaurus$')
+        exec thesaurus_window . "wincmd w"
     else
         silent keepalt belowright split thesaurus
     endif
