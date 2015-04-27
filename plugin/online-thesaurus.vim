@@ -20,7 +20,7 @@ silent let s:sort = system('if command -v /bin/sort > /dev/null; then'
             \ . ' else printf sort; fi')
 
 function! s:Lookup(word)
-    let l:thesaurus_window = bufwinnr('^thesaurus$')
+    silent! let l:thesaurus_window = bufwinnr('^thesaurus$')
 
     if l:thesaurus_window > -1
         exec l:thesaurus_window . "wincmd w"
