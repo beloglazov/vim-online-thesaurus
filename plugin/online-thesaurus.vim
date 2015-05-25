@@ -14,7 +14,7 @@ let s:save_shell = &shell
 if has("win32")
     let &shell        = 'C:\\Program Files (x86)\\Git\\bin\\bash.exe'
     let s:script_name = "\\thesaurus-lookup.sh"
-    let s:sort        = 'sort'
+    let s:sort        = "C:\\Program Files (x86)\\Git\\bin\\sort.exe"
 else
     let &shell        = '/bin/sh'
     let s:script_name = "/thesaurus-lookup.sh"
@@ -41,7 +41,11 @@ function! s:Lookup(word)
     1,$d
     echo "Requesting thesaurus.com to look up the word \"" . l:word . "\"..."
     exec ":silent 0r !" . s:path . " " . shellescape(l:word)
-    exec ":silent g/\\vrelevant-\\d+/,/^$/!" . s:sort . " -t ' ' -k 1,1r -k 2,2"
+    exec ":silent! g/\\vrelevant-\\d+/,/^$/!" . s:sort . " -t ' ' -k 1,1r -k 2,2"
+    if has("win32")
+        silent! %s///g
+        silent! normal! gg5dd
+    endif
     silent g/\vrelevant-\d+ /s///
     silent! g/^Synonyms/+;/^$/-2s/$\n/, /
     silent g/^Synonyms:/ normal! JVgq
