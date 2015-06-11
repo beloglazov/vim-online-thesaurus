@@ -12,9 +12,17 @@ let s:save_cpo = &cpo
 set cpo&vim
 let s:save_shell = &shell
 if has("win32")
-    let &shell        = 'C:\\Program Files (x86)\\Git\\bin\\bash.exe'
+    let cpu_arch      = system('echo %PROCESSOR_ARCHITECTURE%')
     let s:script_name = "\\thesaurus-lookup.sh"
-    let s:sort        = "C:\\Program Files (x86)\\Git\\bin\\sort.exe"
+    if isdirectory('C:\\Program Files (x86)\\Git')
+        let &shell        = 'C:\\Program Files (x86)\\Git\\bin\\bash.exe'
+        let s:sort        = "C:\\Program Files (x86)\\Git\\bin\\sort.exe"
+    elseif isdirectory('C:\\Program Files\\Git')
+        let &shell        = 'C:\\Program Files\\Git\\bin\\bash.exe'
+        let s:sort        = "C:\\Program Files\\Git\\bin\\sort.exe"
+    else
+        echoerr 'vim-thesaurus: Cannot find git installation.'
+    endif
 else
     let &shell        = '/bin/sh'
     let s:script_name = "/thesaurus-lookup.sh"
@@ -43,7 +51,7 @@ function! s:Lookup(word)
     exec ":silent 0r !" . s:path . " " . shellescape(l:word)
     exec ":silent! g/\\vrelevant-\\d+/,/^$/!" . s:sort . " -t ' ' -k 1,1r -k 2,2"
     if has("win32")
-        silent! %s///g
+        silent! %s/\r//g
         silent! normal! gg5dd
     endif
     silent g/\vrelevant-\d+ /s///
