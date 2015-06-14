@@ -11,13 +11,28 @@ let g:loaded_online_thesaurus = 1
 let s:save_cpo = &cpo
 set cpo&vim
 let s:save_shell = &shell
-let &shell = '/bin/sh'
-
-let s:path = shellescape(expand("<sfile>:p:h"))
-
-silent let s:sort = system('if command -v /bin/sort > /dev/null; then'
+if has("win32")
+    let cpu_arch      = system('echo %PROCESSOR_ARCHITECTURE%')
+    let s:script_name = "\\thesaurus-lookup.sh"
+    if isdirectory('C:\\Program Files (x86)\\Git')
+        let &shell        = 'C:\\Program Files (x86)\\Git\\bin\\bash.exe'
+        let s:sort        = "C:\\Program Files (x86)\\Git\\bin\\sort.exe"
+    elseif isdirectory('C:\\Program Files\\Git')
+        let &shell        = 'C:\\Program Files\\Git\\bin\\bash.exe'
+        let s:sort        = "C:\\Program Files\\Git\\bin\\sort.exe"
+    else
+        echoerr 'vim-thesaurus: Cannot find git installation.'
+    endif
+else
+    let &shell        = '/bin/sh'
+    let s:script_name = "/thesaurus-lookup.sh"
+    silent let s:sort = system('if command -v /bin/sort > /dev/null; then'
             \ . ' printf /bin/sort;'
             \ . ' else printf sort; fi')
+endif
+
+let s:path = shellescape(expand("<sfile>:p:h") . s:script_name)
+
 
 function! s:Lookup(word)
     silent! let l:thesaurus_window = bufwinnr('^thesaurus$')
@@ -33,8 +48,12 @@ function! s:Lookup(word)
     let l:word = substitute(a:word, '"', '', 'g')
     1,$d
     echo "Requesting thesaurus.com to look up the word \"" . l:word . "\"..."
-    exec ":silent 0r !" . s:path . "/thesaurus-lookup.sh " . shellescape(l:word)
-    exec ":silent g/\\vrelevant-\\d+/,/^$/!" . s:sort . " -t ' ' -k 1,1r -k 2,2"
+    exec ":silent 0r !" . s:path . " " . shellescape(l:word)
+    exec ":silent! g/\\vrelevant-\\d+/,/^$/!" . s:sort . " -t ' ' -k 1,1r -k 2,2"
+    if has("win32")
+        silent! %s/\r//g
+        silent! normal! gg5dd
+    endif
     silent g/\vrelevant-\d+ /s///
     silent! g/^Synonyms/+;/^$/-2s/$\n/, /
     silent g/^Synonyms:/ normal! JVgq
