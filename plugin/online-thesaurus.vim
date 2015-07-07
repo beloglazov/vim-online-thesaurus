@@ -63,13 +63,27 @@ function! s:Lookup(word)
     nnoremap <silent> <buffer> q :q<CR>
 endfunction
 
+function! s:LookupVisual(mode)
+    " Only support character-wise visual mode
+    if a:mode == 'v'
+        let reg_save = @@
+
+        silent exec ":normal! gvy"
+        call s:Lookup(@@)
+
+        let @@ = reg_save
+    else
+        echo "No support for line-wise nor block-wise visual modes"
+    endif
+endfunction
+
 if !exists('g:online_thesaurus_map_keys')
     let g:online_thesaurus_map_keys = 1
 endif
 
 if g:online_thesaurus_map_keys
     nnoremap <unique> <LocalLeader>K :OnlineThesaurusCurrentWord<CR>
-    vnoremap <unique> <LocalLeader>K y:Thesaurus <C-r>"<CR>
+    vnoremap <unique> <LocalLeader>K :<C-U>call <SID>LookupVisual(visualmode())<CR>
 endif
 
 command! OnlineThesaurusCurrentWord :call <SID>Lookup(expand('<cword>'))
