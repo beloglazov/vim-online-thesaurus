@@ -35,6 +35,7 @@ let s:path = shellescape(expand("<sfile>:p:h") . s:script_name)
 
 
 function! s:Lookup(word)
+    let reg_save = @@
     silent! let l:thesaurus_window = bufwinnr('^thesaurus$')
 
     if l:thesaurus_window > -1
@@ -61,6 +62,7 @@ function! s:Lookup(word)
     exec 'resize ' . (line('$') - 1)
     setlocal nomodifiable filetype=thesaurus
     nnoremap <silent> <buffer> q :q<CR>
+    let @@ = reg_save
 endfunction
 
 function! s:LookupVisual(mode)
