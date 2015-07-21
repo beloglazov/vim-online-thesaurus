@@ -74,5 +74,5 @@ plugin!
 
 ## License
 
-Copyright (c) Anton Beloglazov. Distributed under the same terms as Vim itself.
-See :help license.
+Copyright (c) Anton Beloglazov, Google Inc. Distributed under the Apache 2.0
+License.
