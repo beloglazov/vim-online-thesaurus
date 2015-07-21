@@ -45,7 +45,7 @@ function! s:Lookup(word)
 
     setlocal noswapfile nobuflisted nospell nowrap modifiable
     setlocal buftype=nofile bufhidden=hide
-    let l:word = substitute(a:word, '"', '', 'g')
+    let l:word = substitute(tolower(a:word), '"', '', 'g')
     1,$d
     echo "Requesting thesaurus.com to look up the word \"" . l:word . "\"..."
     exec ":silent 0r !" . s:path . " " . shellescape(l:word)
