@@ -35,6 +35,7 @@ let s:path = shellescape(expand("<sfile>:p:h") . s:script_name)
 
 
 function! s:Lookup(word)
+    let reg_save = @@
     silent! let l:thesaurus_window = bufwinnr('^thesaurus$')
 
     if l:thesaurus_window > -1
@@ -61,6 +62,21 @@ function! s:Lookup(word)
     exec 'resize ' . (line('$') - 1)
     setlocal nomodifiable filetype=thesaurus
     nnoremap <silent> <buffer> q :q<CR>
+    let @@ = reg_save
+endfunction
+
+function! s:LookupVisual(mode)
+    " Only support character-wise visual mode
+    if a:mode == 'v'
+        let reg_save = @@
+
+        silent exec ":normal! gvy"
+        call s:Lookup(@@)
+
+        let @@ = reg_save
+    else
+        echo "No support for line-wise nor block-wise visual modes"
+    endif
 endfunction
 
 if !exists('g:online_thesaurus_map_keys')
@@ -69,7 +85,7 @@ endif
 
 if g:online_thesaurus_map_keys
     nnoremap <unique> <LocalLeader>K :OnlineThesaurusCurrentWord<CR>
-    vnoremap <unique> <LocalLeader>K y:Thesaurus <C-r>"<CR>
+    vnoremap <unique> <LocalLeader>K :<C-U>call <SID>LookupVisual(visualmode())<CR>
 endif
 
 command! OnlineThesaurusCurrentWord :call <SID>Lookup(expand('<cword>'))
