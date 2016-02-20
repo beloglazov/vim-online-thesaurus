@@ -41,7 +41,7 @@ if ! grep -q 'no thesaurus results' "$OUTFILE" && grep -q 'html' "$OUTFILE"; the
         else if (index($0, "ttl\">"))
             printf " %s\nSynonyms:\n", $3
         else if (index($0, "thesaurus.com"))
-            printf "%s ", $5
+            printf "%s, ", $15
         else if (index($0, "text\">"))
             print $3
     }' "$OUTFILE"
