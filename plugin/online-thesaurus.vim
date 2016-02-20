@@ -55,7 +55,7 @@ function! s:Lookup(word)
         silent! normal! gg5dd
     endif
     silent g/\vrelevant-\d+ /s///
-    silent! g/^Synonyms/+;/^$/-2s/$\n/, /
+    silent! g/^Synonyms/+;/^$/-2s/, $\n/\r/
     silent g/^Synonyms:/ normal! JVgq
     0
     exec 'resize ' . (line('$') - 1)
