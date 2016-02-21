@@ -2,7 +2,7 @@
 
 # Vim plugin for looking up words in an online thesaurus
 # Author:       Anton Beloglazov <http://beloglazov.info/>
-# Version:      0.3.1
+# Version:      0.3.2
 # Original idea and code: Nick Coleman <http://www.nickcoleman.org/>
 
 URL="http://www.thesaurus.com/browse/$(echo $1 | tr ' ' '+')"
@@ -41,9 +41,7 @@ if ! grep -q 'no thesaurus results' "$OUTFILE" && grep -q 'html' "$OUTFILE"; the
         else if (index($0, "ttl\">"))
             printf " %s\nSynonyms:\n", $3
         else if (index($0, "thesaurus.com"))
-            printf "%s ", $5
-        else if (index($0, "text\">"))
-            print $3
+            printf "%s %s\n", $7, $15
     }' "$OUTFILE"
 else
     echo "The word \"${1}\" has not been found on thesaurus.com!"

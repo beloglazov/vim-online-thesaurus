@@ -1,6 +1,6 @@
 " Vim plugin for looking up words in an online thesaurus
 " Author:       Anton Beloglazov <http://beloglazov.info/>
-" Version:      0.3.1
+" Version:      0.3.2
 " Original idea and code: Nick Coleman <http://www.nickcoleman.org/>
 
 if exists("g:loaded_online_thesaurus")
@@ -47,7 +47,7 @@ function! s:Lookup(word)
     setlocal buftype=nofile bufhidden=hide
     let l:word = substitute(tolower(a:word), '"', '', 'g')
     1,$d
-    echo "Requesting thesaurus.com to look up the word \"" . l:word . "\"..."
+    echo "Requesting thesaurus.com to look up \"" . l:word . "\"..."
     exec ":silent 0r !" . s:path . " " . shellescape(l:word)
     exec ":silent! g/\\vrelevant-\\d+/,/^$/!" . s:sort . " -t ' ' -k 1,1r -k 2,2"
     if has("win32")
