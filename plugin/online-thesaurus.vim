@@ -33,19 +33,25 @@ endif
 
 let s:path = shellescape(expand("<sfile>:p:h") . s:script_name)
 
+function! s:Trim(input_string)
+    let l:str = substitute(a:input_string, '[\r\n]', '', '')
+    return substitute(l:str, '^\s*\(.\{-}\)\s*$', '\1', '')
+endfunction
 
 function! s:Lookup(word)
-    silent! let l:thesaurus_window = bufwinnr('^thesaurus$')
+    let l:word = substitute(tolower(s:Trim(a:word)), '"', '', 'g')
+    let l:word_fname = fnameescape(l:word)
 
+    silent! let l:thesaurus_window = bufwinnr('^thesaurus: ')
     if l:thesaurus_window > -1
         exec l:thesaurus_window . "wincmd w"
     else
-        silent keepalt belowright split thesaurus
+        exec ":silent keepalt belowright split thesaurus:\\ " . l:word_fname
     endif
+    exec ":silent file thesaurus:\\ " . l:word_fname
 
     setlocal noswapfile nobuflisted nospell nowrap modifiable
     setlocal buftype=nofile bufhidden=hide
-    let l:word = substitute(tolower(a:word), '"', '', 'g')
     1,$d
     echo "Requesting thesaurus.com to look up \"" . l:word . "\"..."
     exec ":silent 0r !" . s:path . " " . shellescape(l:word)
@@ -58,6 +64,7 @@ function! s:Lookup(word)
     silent! g/^Synonyms/+;/^$/-2s/$\n/, /
     silent g/^Synonyms:/ normal! JVgq
     0
+    1d
     exec 'resize ' . (line('$') - 1)
     setlocal nomodifiable filetype=thesaurus
     nnoremap <silent> <buffer> q :q<CR>

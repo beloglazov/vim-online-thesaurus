@@ -32,9 +32,6 @@ fi
 "$DOWNLOAD" "$OPTIONS" "$OUTFILE" "$URL"
 
 if ! grep -q 'no thesaurus results' "$OUTFILE" && grep -q 'html' "$OUTFILE"; then
-    printf "%s" 'Main entry: '
-    echo ${1} | tr '[A-Z]' '[a-z]'
-
     awk -F'<|>|&quot;' '/synonym-description">/,/filter-[0-9]+/ {
         if (index($0, "txt\">"))
             printf "\nDefinition: %s", $3
