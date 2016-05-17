@@ -34,7 +34,7 @@ fi
 if ! grep -q 'no thesaurus results' "$OUTFILE" && grep -q 'html' "$OUTFILE"; then
     awk -F'<|>|&quot;' '/synonym-description">/,/filter-[0-9]+/ {
         if (index($0, "txt\">"))
-            printf "\nDefinition: %s", $3
+            printf "\nDefinition: %s.", $3
         else if (index($0, "ttl\">"))
             printf " %s\nSynonyms:\n", $3
         else if (index($0, "thesaurus.com"))
