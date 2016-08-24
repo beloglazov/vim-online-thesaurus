@@ -55,14 +55,15 @@ function! s:Lookup(word)
     1,$d
     echo "Requesting thesaurus.com to look up \"" . l:word . "\"..."
     exec ":silent 0r !" . s:path . " " . shellescape(l:word)
-    exec ":silent! g/\\vrelevant-\\d+/,/^$/!" . s:sort . " -t ' ' -k 1,1r -k 2,2"
+    exec ':silent! g/^relevant /,/^$/-!' . s:sort . " -t ' ' -k 2nr -k 3"
     if has("win32")
         silent! %s/\r//g
         silent! normal! gg5dd
     endif
-    silent g/\vrelevant-\d+ /s///
-    silent! g/^Synonyms/+;/^$/-2s/$\n/, /
-    silent g/^Synonyms:/ normal! JVgq
+    silent g/\vrelevant \d+ /s///
+    silent! g/^\%(Syn\|Ant\)onyms:/+;/^$/-2s/$\n/, /
+    silent g/^\%(Syn\|Ant\)onyms:/ normal! JVgq
+    silent g/^Antonyms:/-d
     0
     1d
     exec 'resize ' . (line('$') - 1)
