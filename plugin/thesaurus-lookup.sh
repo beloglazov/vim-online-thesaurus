@@ -37,8 +37,17 @@ if ! grep -q 'no thesaurus results' "$OUTFILE" && grep -q 'html' "$OUTFILE"; the
             printf "\nDefinition: %s", $3
         else if (index($0, "ttl\">"))
             printf " %s\nSynonyms:\n", $3
-        else if (index($0, "thesaurus.com"))
+        else if (index($0, "thesaurus.com")) {
+            sub(/-/, " ", $7)
             printf "%s %s\n", $7, $15
+        }
+    } /container-info antonyms/,/\/section/ {
+        if (index($0, "container-info antonyms"))
+            print "\nAntonyms:"
+        else if (index($0, "thesaurus.com/browse")) {
+            sub(/--/, " ", $7)
+            printf "%s %s\n", $7, $15
+        }
     }' "$OUTFILE"
 else
     echo "The word \"${1}\" has not been found on thesaurus.com!"
