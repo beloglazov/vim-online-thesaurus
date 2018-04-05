@@ -46,12 +46,12 @@ function! s:Lookup(word)
     if l:thesaurus_window > -1
         exec l:thesaurus_window . "wincmd w"
     else
-        exec ":silent keepalt belowright split thesaurus:\\ " . l:word_fname
+        silent keepalt belowright new
     endif
-    exec ":silent file thesaurus:\\ " . l:word_fname
 
     setlocal noswapfile nobuflisted nospell nowrap modifiable
     setlocal buftype=nofile bufhidden=hide
+    exec "silent file thesaurus:\\ " . l:word_fname
     1,$d
     echo "Requesting thesaurus.com to look up \"" . l:word . "\"..."
     exec ":silent 0r !" . s:path . " " . shellescape(l:word)
