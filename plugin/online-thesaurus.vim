@@ -65,7 +65,7 @@ function! s:Lookup(word)
     silent g/^\%(Syn\|Ant\)onyms:/ normal! JVgq
     silent g/^Antonyms:/-d
     0
-    1d
+    silent 1d
     exec 'resize ' . (line('$') - 1)
     setlocal nomodifiable filetype=thesaurus
     nnoremap <silent> <buffer> q :q<CR>
