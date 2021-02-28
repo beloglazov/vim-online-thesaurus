@@ -1,3 +1,8 @@
+# DEPRECATED
+This plugin doesn't work anymore. Please read [this
+issue](https://github.com/beloglazov/vim-online-thesaurus/issues/44) for more
+information.
+
 # Vim Online Thesaurus
 
 This is a plugin for Vim allowing you to look up words in an online thesaurus,
